@@ -77,7 +77,12 @@ class Quiz:
                 break
             else:
                 print("Invalid choice. Please select 1 or 2.")
-                
+
+
+if __name__ == "__main__":
+    quiz_creator = Quiz()
+    quiz_creator.run()
+
 #initialize main menu function() to display main menu
 def main_menu(quiz_started):
     print("\n********** Welcome to Quiz Creator! **********")
