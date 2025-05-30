@@ -1,3 +1,5 @@
+# Initialize class to encapsulate the whole program
+
 #initialize main menu function() to display main menu
 def main_menu(quiz_started):
     print("\n********** Welcome to Quiz Creator! **********")

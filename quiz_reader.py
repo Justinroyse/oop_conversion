@@ -1,3 +1,5 @@
+# Initialize class to encapsulate the whole program
+
 # Import tkinter
 # Import module (random) to load the questions randomly for the user to answer
 import tkinter as tk
