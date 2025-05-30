@@ -30,7 +30,30 @@ class Quiz:
             print("1. Create New Question")
         print("2. Exit and save to file")
         print("**********************************************")
-        
+
+    def create_question(self):
+        print("\n--- Creating a New Question ---")
+        question_text = input("\nEnter your quiz question:\n> ")
+
+        print("\nNow enter the 4 options:")
+        options = {
+            'a': input("a) "),
+            'b': input("b) "),
+            'c': input("c) "),
+            'd': input("d) ")
+        }
+
+        while True:
+            correct_answer = input("\nEnter the correct answer (a,b,c,d): ").lower()
+            if correct_answer in options:
+                break
+            else:
+                print("Invalid choice. Please enter a, b, c, or d.")
+
+        new_question = Question(question_text, options, correct_answer)
+        self.questions.append(new_question)
+        self.quiz_started = True
+
 #initialize main menu function() to display main menu
 def main_menu(quiz_started):
     print("\n********** Welcome to Quiz Creator! **********")
