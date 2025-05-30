@@ -8,38 +8,39 @@ import random
 from PIL import Image, ImageTk
 
 # Create user defined function for loading the quiz file
-def reader(filename):
-    try:
-        with open(filename, "r") as file:
-            content = file.read()
-    except FileNotFoundError:
-        messagebox.showerror("File Error", f"(Cannot find {filename}")
-        return []
+class QuestionLoader:
+    def reader(filename):
+        try:
+            with open(filename, "r") as file:
+                content = file.read()
+        except FileNotFoundError:
+            messagebox.showerror("File Error", f"(Cannot find {filename}")
+            return []
 
-    blocks = content.strip().split("-" * 30 + "\n")
-    questions = []
+        blocks = content.strip().split("-" * 30 + "\n")
+        questions = []
 
-    for block in blocks:
-        lines = block.strip().split('\n')
-        if len(lines) < 6:
-            continue
+        for block in blocks:
+            lines = block.strip().split('\n')
+            if len(lines) < 6:
+                continue
 
-        question_text = lines[0].replace("Question: ", "")
-        options = {
-            'a': lines[1][3:],
-            'b': lines[2][3:],
-            'c': lines[3][3:],
-            'd': lines[4][3:]
-        }
-        correct = lines[5].replace("Correct Answer: ", "").strip()
+            question_text = lines[0].replace("Question: ", "")
+            options = {
+                'a': lines[1][3:],
+                'b': lines[2][3:],
+                'c': lines[3][3:],
+                'd': lines[4][3:]
+            }
+            correct = lines[5].replace("Correct Answer: ", "").strip()
 
-        questions.append({
-            "question": question_text,
-            "options": options,
-            "correct": correct
-        })
+            questions.append({
+                "question": question_text,
+                "options": options,
+                "correct": correct
+            })
 
-    return questions
+        return questions
 
 # Create quiz class and slowly incorporate it in the prototype quiz game function
 class QuizApp:
