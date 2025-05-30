@@ -54,6 +54,13 @@ class Quiz:
         self.questions.append(new_question)
         self.quiz_started = True
 
+    def save_to_file(self, filename="quiz_questions.txt"):
+        with open(filename, "w") as file:
+            for question in self.questions:
+                file.write(question.format_question())
+        print(f"\n--- All questions saved to ({filename}) ---")
+        print("Exiting program... Goodbye!")
+
 #initialize main menu function() to display main menu
 def main_menu(quiz_started):
     print("\n********** Welcome to Quiz Creator! **********")
