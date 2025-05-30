@@ -9,12 +9,15 @@ from PIL import Image, ImageTk
 
 # Create user defined function for loading the quiz file
 class QuestionLoader:
-    def reader(filename):
+    def __init__(self, filename):
+        self.filename = filename
+
+    def reader(self):
         try:
-            with open(filename, "r") as file:
+            with open(self.filename, "r") as file:
                 content = file.read()
         except FileNotFoundError:
-            messagebox.showerror("File Error", f"(Cannot find {filename}")
+            messagebox.showerror("File Error", f"(Cannot find {self.filename}")
             return []
 
         blocks = content.strip().split("-" * 30 + "\n")
