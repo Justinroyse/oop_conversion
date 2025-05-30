@@ -61,6 +61,23 @@ class Quiz:
         print(f"\n--- All questions saved to ({filename}) ---")
         print("Exiting program... Goodbye!")
 
+    def run(self):
+        while True:
+            self.main_menu()
+            try:
+                choice = int(input("\nChoice (1 or 2): "))
+            except ValueError:
+                print("Please enter a valid number (1 or 2).")
+                continue
+
+            if choice == 1:
+                self.create_question()
+            elif choice == 2:
+                self.save_to_file()
+                break
+            else:
+                print("Invalid choice. Please select 1 or 2.")
+                
 #initialize main menu function() to display main menu
 def main_menu(quiz_started):
     print("\n********** Welcome to Quiz Creator! **********")
