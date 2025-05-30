@@ -18,8 +18,10 @@ class Question:
         return formatted
 
 class Quiz:
+    def __init__(self):
+        self.questions = []
+        self.quiz_started = False
 
-    
 #initialize main menu function() to display main menu
 def main_menu(quiz_started):
     print("\n********** Welcome to Quiz Creator! **********")
