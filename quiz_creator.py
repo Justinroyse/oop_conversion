@@ -1,8 +1,22 @@
 # Initialize class to encapsulate the whole program
 
+# Initialized Question class to modulate questions
 class Question:
-    
+    def __init__(self, question_text, options, correct_answer):
+        self.question_text = question_text
+        self.options = options
+        self.correct_answer = correct_answer
 
+    def format_question(self):
+        formatted = f"Question: {self.question_text}\n"
+        formatted += f"a) {self.options['a']}\n"
+        formatted += f"b) {self.options['b']}\n"
+        formatted += f"c) {self.options['c']}\n"
+        formatted += f"d) {self.options['d']}\n"
+        formatted += f"Correct Answer: {self.correct_answer}\n"
+        formatted += "-" * 30 + "\n"
+        return formatted
+    
 #initialize main menu function() to display main menu
 def main_menu(quiz_started):
     print("\n********** Welcome to Quiz Creator! **********")
