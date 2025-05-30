@@ -22,6 +22,15 @@ class Quiz:
         self.questions = []
         self.quiz_started = False
 
+    def main_menu(self):
+        print("\n********** Welcome to Quiz Creator! **********")
+        if not self.quiz_started:
+            print("1. Create Quiz")
+        else:
+            print("1. Create New Question")
+        print("2. Exit and save to file")
+        print("**********************************************")
+        
 #initialize main menu function() to display main menu
 def main_menu(quiz_started):
     print("\n********** Welcome to Quiz Creator! **********")
