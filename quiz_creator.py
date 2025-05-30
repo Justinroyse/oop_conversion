@@ -16,6 +16,9 @@ class Question:
         formatted += f"Correct Answer: {self.correct_answer}\n"
         formatted += "-" * 30 + "\n"
         return formatted
+
+class Quiz:
+
     
 #initialize main menu function() to display main menu
 def main_menu(quiz_started):
