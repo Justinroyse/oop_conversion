@@ -1,6 +1,6 @@
 # Initialize class to encapsulate the whole program
+# Initialize Question class to modularize questions
 
-# Initialized Question class to modulate questions
 class Question:
     def __init__(self, question_text, options, correct_answer):
         self.question_text = question_text
@@ -16,6 +16,7 @@ class Question:
         formatted += f"Correct Answer: {self.correct_answer}\n"
         formatted += "-" * 30 + "\n"
         return formatted
+
 
 class Quiz:
     def __init__(self):
@@ -44,7 +45,7 @@ class Quiz:
         }
 
         while True:
-            correct_answer = input("\nEnter the correct answer (a,b,c,d): ").lower()
+            correct_answer = input("\nEnter the correct answer (a, b, c, d): ").lower()
             if correct_answer in options:
                 break
             else:
@@ -82,6 +83,3 @@ class Quiz:
 if __name__ == "__main__":
     quiz_creator = Quiz()
     quiz_creator.run()
-
-
-

@@ -1,12 +1,11 @@
-# Initialize class to encapsulate the whole program
-# Import tkinter
-# Import module (random) to load the questions randomly for the user to answer
+#Imported Modules
 import tkinter as tk
 from tkinter import messagebox
 import random
 from PIL import Image, ImageTk
 
-# Create user defined function for loading the quiz file
+
+# Class to load questions from a text file
 class QuestionLoader:
     def __init__(self, filename):
         self.filename = filename
@@ -16,7 +15,7 @@ class QuestionLoader:
             with open(self.filename, "r") as file:
                 content = file.read()
         except FileNotFoundError:
-            messagebox.showerror("File Error", f"(Cannot find {self.filename}")
+            messagebox.showerror("File Error", f"Cannot find {self.filename}")
             return []
 
         blocks = content.strip().split("-" * 30 + "\n")
@@ -44,32 +43,45 @@ class QuestionLoader:
 
         return questions
 
-# Create quiz class and slowly incorporate it in the prototype quiz game function
+
+# Class to build and run the quiz app
 class QuizApp:
     def __init__(self, master, questions):
         self.master = master
         self.master.title("Quiz Game")
-        self.questions = random.sample(questions, len(questions))  # Shuffle
+        self.questions = random.sample(questions, len(questions))
         self.index = 0
         self.score = 0
-        
-        self.bg_image = Image.open("background_image.jpg")  # Use your image path
-        self.bg_photo = ImageTk.PhotoImage(self.bg_image)
-        self.bg_label = tk.Label(self.master, image=self.bg_photo)
-        self.bg_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+        try:
+            self.bg_image = Image.open("background_image.jpg")
+            self.bg_photo = ImageTk.PhotoImage(self.bg_image)
+            self.bg_label = tk.Label(self.master, image=self.bg_photo)
+            self.bg_label.place(x=0, y=0, relwidth=1, relheight=1)
+        except Exception:
+            self.bg_label = tk.Label(self.master, bg="white")
+            self.bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
         self.create_welcome_screen()
 
     def create_welcome_screen(self):
         self.clear_window()
 
-        self.welcome_label = tk.Label(self.master, text="Welcome to the Quiz Game!", font=("Arial", 18))
+        self.welcome_label = tk.Label(
+            self.master, text="Welcome to the Quiz Game!", font=("Arial", 18)
+        )
         self.welcome_label.pack(pady=30)
 
-        self.start_button = tk.Button(self.master, text="Start Quiz", font=("Arial", 14), command=self.start_quiz)
+        self.start_button = tk.Button(
+            self.master, text="Start Quiz", font=("Arial", 14),
+            command=self.start_quiz
+        )
         self.start_button.pack(pady=10)
 
-        self.quit_button = tk.Button(self.master, text="Quit", font=("Arial", 14), command=self.master.quit)
+        self.quit_button = tk.Button(
+            self.master, text="Quit", font=("Arial", 14),
+            command=self.master.quit
+        )
         self.quit_button.pack(pady=10)
 
     def start_quiz(self):
@@ -78,26 +90,41 @@ class QuizApp:
         self.show_question()
 
     def build_quiz_ui(self):
-        self.question_label = tk.Label(self.master, text="", font=('Arial', 14), wraplength=500, justify="left")
+        self.question_label = tk.Label(
+            self.master, text="", font=('Arial', 14),
+            wraplength=500, justify="left"
+        )
         self.question_label.pack(pady=20)
 
         self.buttons = {}
         for key in ['a', 'b', 'c', 'd']:
-            btn = tk.Button(self.master, text="", width=40, font=('Arial', 12),
-                            command=lambda opt=key: self.check_answer(opt))
+            btn = tk.Button(
+                self.master, text="", width=40, font=('Arial', 12),
+                command=lambda opt=key: self.check_answer(opt)
+            )
             btn.pack(pady=5)
             self.buttons[key] = btn
 
-        self.feedback = tk.Label(self.master, text="", font=('Arial', 12, 'italic'))
+        self.feedback = tk.Label(
+            self.master, text="", font=('Arial', 12, 'italic')
+        )
         self.feedback.pack(pady=10)
 
-        self.next_btn = tk.Button(self.master, text="Next", font=('Arial', 12), command=self.next_question, state="disabled")
+        self.next_btn = tk.Button(
+            self.master, text="Next", font=('Arial', 12),
+            command=self.next_question, state="disabled"
+        )
         self.next_btn.pack(pady=10)
 
-        self.quit_btn = tk.Button(self.master, text="Quit", font=('Arial', 12), command=self.master.quit)
+        self.quit_btn = tk.Button(
+            self.master, text="Quit", font=('Arial', 12),
+            command=self.master.quit
+        )
         self.quit_btn.pack(pady=5)
 
-        self.score_label = tk.Label(self.master, text="Score: 0", font=('Arial', 12))
+        self.score_label = tk.Label(
+            self.master, text="Score: 0", font=('Arial', 12)
+        )
         self.score_label.pack(pady=5)
 
     def show_question(self):
@@ -107,16 +134,21 @@ class QuizApp:
             return
 
         question = self.questions[self.index]
-        self.question_label.config(text=f"Q{self.index+1}: {question['question']}")
+        self.question_label.config(
+            text=f"Q{self.index + 1}: {question['question']}"
+        )
+
         for key in self.buttons:
-            self.buttons[key].config(text=f"{key}) {question['options'][key]}", state="normal")
+            self.buttons[key].config(
+                text=f"{key}) {question['options'][key]}", state="normal"
+            )
 
         self.feedback.config(text="")
         self.next_btn.config(state="disabled")
-    
 
     def check_answer(self, selected):
         correct = self.questions[self.index]['correct']
+
         for key in self.buttons:
             self.buttons[key].config(state="disabled")
 
@@ -125,7 +157,9 @@ class QuizApp:
             self.score += 1
         else:
             correct_text = self.questions[self.index]['options'][correct]
-            self.feedback.config(text=f"❌ Wrong! Correct: {correct}) {correct_text}", fg="red")
+            self.feedback.config(
+                text=f"❌ Wrong! Correct: {correct}) {correct_text}", fg="red"
+            )
 
         self.score_label.config(text=f"Score: {self.score}")
         self.next_btn.config(state="normal")
@@ -139,12 +173,13 @@ class QuizApp:
             if widget != self.bg_label:
                 widget.destroy()
 
-# Initialize the file to load
+
+# Launching the quiz app
 if __name__ == "__main__":
     loader = QuestionLoader("quiz_questions.txt")
     questions = loader.reader()
+
     if questions:
         root = tk.Tk()
         app = QuizApp(root, questions)
         root.mainloop()
-
