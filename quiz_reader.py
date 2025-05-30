@@ -142,10 +142,10 @@ class QuizApp:
 
 # Initialize the file to load
 if __name__ == "__main__":
-    questions = reader("quiz_questions.txt")
+    loader = QuestionLoader("quiz_questions.txt")
+    questions = loader.reader()
     if questions:
         root = tk.Tk()
-        root.title("Quiz Game")
         app = QuizApp(root, questions)
         root.mainloop()
 
